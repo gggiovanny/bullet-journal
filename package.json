@@ -13,9 +13,11 @@
     "postinstall": "cp .vscode/settings.json.example .vscode/settings.json && cp .vscode/tasks.json.example .vscode/tasks.json"
   },
   "dependencies": {
+    "clsx": "^2.1.0",
     "next": "14.2.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-icons": "^5.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",

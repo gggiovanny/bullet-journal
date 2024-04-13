@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { Almarai } from 'next/font/google';
 
 const almarai = Almarai({
-  weight: ['800'],
+  weight: ['700', '800'],
   subsets: ['arabic'],
   variable: '--font-almarai',
 });
