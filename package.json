@@ -9,7 +9,8 @@
     "check": "npm run lint && npm run format",
     "lint": "next lint",
     "lint:fix": "eslint ./src --ext .js,.jsx,.ts,.tsx --fix",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\""
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
+    "postinstall": "cp .vscode/settings.json.example .vscode/settings.json && cp .vscode/tasks.json.example .vscode/tasks.json"
   },
   "dependencies": {
     "next": "14.2.0",
