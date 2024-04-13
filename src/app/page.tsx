@@ -4,13 +4,13 @@ import { Button } from '@/components/Button';
 
 export default function Home() {
   return (
-    <main className="min-h-screen px-[34px] py-[21px]">
+    <main className="min-h-screen px-8 py-5">
       <div className="w-[222px] h-[213px]">
-        <h1 className="font-title text-[64px] text-text-color  leading-[normal]">
+        <h1 className="font-title text-6xl text-text-color  leading-[normal]">
           my bullet journal
         </h1>
       </div>
-      <div className="w-100 mt-[41px] flex flex-col gap-[16px]">
+      <div className="w-100 mt-10 flex flex-col gap-4">
         {Array.from({ length: 5 }).map((_, index) => (
           <div
             key={index}

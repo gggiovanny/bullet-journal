@@ -11,7 +11,7 @@ export const Button = ({
   ...buttonProps
 }: ButtonProps) => {
   const classNames = clsx(
-    'bg-white text-text-color h-[30px] flex flex-row justify-center items-center gap-[6px] p-[16px] rounded-[18.5px] shadow-button-shadow font-bold',
+    'bg-white text-text-color h-8 flex flex-row justify-center items-center gap-1.5 p-4 rounded-2xl shadow-button-shadow font-bold',
     customClassnames
   );
 
