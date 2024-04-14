@@ -3,7 +3,7 @@ import { FaBookmark } from 'react-icons/fa';
 
 import { Button } from '@/components/Button';
 
-import { openBulletJournalRoute } from './open/link';
+import { appRoute } from './app/link';
 
 export default function Home() {
   return (
@@ -29,7 +29,7 @@ export default function Home() {
           />
         ))}
       </div>
-      <Link href={openBulletJournalRoute}>
+      <Link href={appRoute}>
         <Button className="mt-8">
           <FaBookmark className="text-icon-color" />
           abrir
