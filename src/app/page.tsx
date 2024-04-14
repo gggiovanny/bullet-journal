@@ -1,6 +1,9 @@
+import Link from 'next/link';
 import { FaBookmark } from 'react-icons/fa';
 
 import { Button } from '@/components/Button';
+
+import { openBulletJournalRoute } from './open/link';
 
 export default function Home() {
   return (
@@ -26,10 +29,12 @@ export default function Home() {
           />
         ))}
       </div>
-      <Button className="mt-8">
-        <FaBookmark className="text-icon-color" />
-        abrir
-      </Button>
+      <Link href={openBulletJournalRoute}>
+        <Button className="mt-8">
+          <FaBookmark className="text-icon-color" />
+          abrir
+        </Button>
+      </Link>
       <svg
         className="mt-9 absolute right-0"
         xmlns="http://www.w3.org/2000/svg"

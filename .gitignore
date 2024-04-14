@@ -38,3 +38,6 @@ next-env.d.ts
 # visual studio code editor
 .vscode/*.json
 !.vscode/*.example
+
+# envs
+*.env
