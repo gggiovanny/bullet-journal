@@ -1,12 +1,20 @@
 import './globals.css';
 
+import clsx from 'clsx';
 import type { Metadata } from 'next';
-import { Almarai } from 'next/font/google';
+import { Almarai, Arapey } from 'next/font/google';
 
 const almarai = Almarai({
-  weight: ['700', '800'],
+  weight: ['400', '700', '800'],
   subsets: ['arabic'],
   variable: '--font-almarai',
+});
+
+const arapey = Arapey({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-arapey',
+  style: 'italic',
 });
 
 export const metadata: Metadata = {
@@ -21,7 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={almarai.variable}>{children}</body>
+      <body className={clsx(almarai.variable, arapey.variable)}>
+        {children}
+      </body>
     </html>
   );
 }

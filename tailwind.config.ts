@@ -18,6 +18,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         title: ['var(--font-almarai)'],
+        italic: ['var(--font-arapey)'], // for italics
       },
       colors: {
         // Color names. Only to be used in branded elements
@@ -31,7 +32,7 @@ const config: Config = {
         'surface-color': creamyMelon,
         'text-color': deepBlue,
         'text-color-alt': melon,
-        'text-color-placeholder': creamyMelon,
+        'text-color-dim': creamyMelon,
         'icon-color': melon,
         'icon-color-alt': deepBlue,
         // Colors by herarchy
