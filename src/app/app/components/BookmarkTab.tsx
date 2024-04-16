@@ -6,6 +6,7 @@ type Props = {
   children: React.ReactNode;
   zIndex?: number;
   isActive?: boolean;
+  onClick?: VoidFunction;
 };
 
 export default function BookmarkTab({
@@ -13,6 +14,7 @@ export default function BookmarkTab({
   color,
   zIndex = 0,
   isActive,
+  onClick,
 }: Props) {
   return (
     <li
@@ -28,6 +30,7 @@ export default function BookmarkTab({
         backgroundColor: color,
         zIndex: isActive ? zIndex + 1 : zIndex,
       }}
+      onClick={onClick}
     >
       {children}
     </li>

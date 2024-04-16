@@ -1,8 +1,12 @@
 'use client';
 
+import { useState } from 'react';
+
 import BookmarkNav from './components/BookmarkNav';
 
 export default function PageRoot() {
+  const [activeTabName, setActiveTabName] = useState('');
+
   return (
     <main className="min-h-screen flex flex-col">
       <div className="grid grid-flow-col grid-cols-8">
@@ -18,7 +22,11 @@ export default function PageRoot() {
           </div>
         </section>
         <aside className="col-span-1">
-          <BookmarkNav className="mt-4" />
+          <BookmarkNav
+            className="mt-4"
+            activeTabName={activeTabName}
+            onClickTab={setActiveTabName}
+          />
         </aside>
       </div>
     </main>
