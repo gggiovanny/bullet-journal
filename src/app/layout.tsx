@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={clsx(almarai.variable, arapey.variable)}>
+      <body className={clsx('min-w-72', almarai.variable, arapey.variable)}>
         {children}
       </body>
     </html>
