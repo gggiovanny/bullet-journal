@@ -1,12 +1,6 @@
 'use client';
 
-const bookmarks = [
-  { text: 'personal', color: '#C6F0EE' },
-  { text: 'por mes', color: '#CAF1BC' },
-  { text: 'año en pixeles', color: '#F2D4B1' },
-  { text: 'listas', color: '#F2B1B1' },
-  { text: 'creativo', color: '#FBCAE1' },
-];
+import BookmarkNav from './components/BookmarkNav';
 
 export default function PageRoot() {
   return (
@@ -25,24 +19,7 @@ export default function PageRoot() {
           </div>
         </section>
         <aside className="col-span-1">
-          <nav>
-            <ul className="flex flex-col font-title text-sm font-normal">
-              {bookmarks.map(({ text, color }, index) => (
-                <li
-                  key={index}
-                  className="shadow-button-shadow rounded-l-2xl ml-auto pt-5 pb-5 pl-2 pr-3"
-                  style={{
-                    writingMode: 'vertical-rl',
-                    textOrientation: 'mixed',
-                    backgroundColor: color,
-                    zIndex: 100 - index,
-                  }}
-                >
-                  {text}
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <BookmarkNav />
         </aside>
       </div>
     </main>
