@@ -1,6 +1,7 @@
 {
+  "parser": "@typescript-eslint/parser",
   "extends": "next/core-web-vitals",
-  "plugins": ["simple-import-sort"],
+  "plugins": ["simple-import-sort", "@typescript-eslint"],
   "rules": {
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
@@ -9,6 +10,7 @@
     "import/no-duplicates": "warn",
     "react/self-closing-comp": "warn",
     "object-curly-spacing": ["warn", "always"],
-    "no-console": "warn"
+    "no-console": "warn",
+    "@typescript-eslint/no-unused-vars": "warn"
   }
 }

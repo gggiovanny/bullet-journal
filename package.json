@@ -8,9 +8,19 @@
     "start": "next start",
     "check": "npm run lint && npm run format",
     "lint": "next lint",
-    "lint:fix": "eslint ./src --ext .js,.jsx,.ts,.tsx --fix",
+    "lint:fix": "eslint ./src --ext .js,.jsx,.ts,.tsx --max-warnings 0 --cache --cache-location ./node_modules/.cache/eslint --fix",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
-    "postinstall": "cp .vscode/settings.json.example .vscode/settings.json && cp .vscode/tasks.json.example .vscode/tasks.json"
+    "postinstall": "cp .vscode/settings.json.example .vscode/settings.json && cp .vscode/tasks.json.example .vscode/tasks.json",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{json,md,css}": [
+      "prettier --write"
+    ],
+    "!(*.d.ts)*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --max-warnings 0 --cache --cache-location ./node_modules/.cache/eslint --fix"
+    ]
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.42.3",
@@ -24,9 +34,13 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^7.7.0",
+    "@typescript-eslint/parser": "^7.7.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.0",
     "eslint-plugin-simple-import-sort": "^12.0.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "npm-run-all2": "^6.1.2",
     "postcss": "^8",
     "prettier": "^3.2.5",
