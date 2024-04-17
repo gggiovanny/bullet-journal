@@ -12,7 +12,8 @@ export default function PageRoot() {
 
   return (
     <CategoryLayout
-      title={activeTab.title}
+      title={activeTab.title || (activeTab.text as string)}
+      backgroundColor={activeTab.backgroundColor || activeTab.color}
       aside={
         <BookmarkNav
           className="mt-4"
