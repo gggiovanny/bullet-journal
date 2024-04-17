@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { PiHandSoap, PiHeart } from 'react-icons/pi';
 
+import BigIconCheckbox from './components/BigIconCheckbox';
 import BookmarkNav from './components/BookmarkNav';
 import CategoryLayout from './components/CategoryLayout';
 import { EmptyState } from './components/EmptyState';
@@ -33,9 +35,13 @@ export default function PageRoot() {
       >
         {activeTab.title || activeTab.text}
       </h1>
-      <div className="text-center font-italic italic text-text-color-alt font-normal h-full text-sm">
-        {activeTabName === 'home' && <EmptyState />}
-      </div>
+      {activeTabName === 'home' && <EmptyState />}
+      {activeTabName !== 'home' && (
+        <div className="m-3 flex gap-4">
+          <BigIconCheckbox text="sobre mi" Icon={PiHeart} />
+          <BigIconCheckbox text="rutina de skin care" Icon={PiHandSoap} />
+        </div>
+      )}
     </CategoryLayout>
   );
 }
