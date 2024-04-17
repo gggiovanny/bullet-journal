@@ -28,6 +28,7 @@ export default function BookmarkTab({
         textOrientation: 'mixed',
         backgroundColor: color,
         zIndex: isActive ? zIndex + 1 : zIndex,
+        transition: 'padding 0.1s ease-in-out',
       }}
       onClick={onClick}
     >
