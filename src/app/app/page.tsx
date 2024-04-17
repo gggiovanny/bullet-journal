@@ -12,9 +12,7 @@ export default function PageRoot() {
 
   return (
     <CategoryLayout
-      title={activeTab.title || (activeTab.text as string)}
       backgroundColor={activeTab.backgroundColor || activeTab.color}
-      titleColor={activeTab.titleColor}
       aside={
         <BookmarkNav
           className="mt-4"
@@ -23,6 +21,16 @@ export default function PageRoot() {
         />
       }
     >
+      <h1
+        className="font-title font-extrabold opacity-50"
+        style={{
+          color: activeTab.titleColor,
+          fontSize: activeTab.fontSize,
+          margin: activeTab.margins,
+        }}
+      >
+        {activeTab.title || activeTab.text}
+      </h1>
       <div className="text-center font-italic italic text-text-color-alt font-normal h-full text-sm">
         <div className="w-56 mx-auto flex flex-col justify-center align-middle gap-3 h-full">
           <p className="underline">Agenda Vacía</p>
