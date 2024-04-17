@@ -28,6 +28,7 @@ export default function PageRoot() {
           color: activeTab.titleColor,
           fontSize: activeTab.fontSize,
           margin: activeTab.margins,
+          transition: 'color 0.1s ease-in-out',
         }}
       >
         {activeTab.title || activeTab.text}

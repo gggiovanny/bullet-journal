@@ -12,7 +12,10 @@ export default function CategoryLayout({
   return (
     <main
       className="min-h-screen flex flex-col"
-      style={{ backgroundColor: backgroundColor }}
+      style={{
+        backgroundColor: backgroundColor,
+        transition: 'background-color 0.1s ease-in-out',
+      }}
     >
       <div className="grid grid-flow-col grid-cols-8">
         <section className="col-span-7 h-full">{children}</section>
