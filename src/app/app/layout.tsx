@@ -1,15 +1,15 @@
 'use client';
 
-// import { useAuthenticatedClient } from '@/supabase';
+import { useAuthenticatedClient } from '@/supabase';
 
 export default function AppLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const { user } = useAuthenticatedClient();
+  const { user } = useAuthenticatedClient();
 
-  // if (!user) return 'Loading...';
+  if (!user) return 'Loading...';
 
   return <>{children}</>;
 }

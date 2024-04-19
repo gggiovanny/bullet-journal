@@ -1,17 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { PiHandSoap, PiHeart } from 'react-icons/pi';
+
+import usePagesByCategory from '@/supabase/models/usePagesByCategory';
 
 import BigIconCheckbox from './components/BigIconCheckbox';
 import BookmarkNav from './components/BookmarkNav';
 import CategoryLayout from './components/CategoryLayout';
 import { EmptyState } from './components/EmptyState';
+import { iconsByPageName } from './constants/iconsByPageName';
 import { tabs } from './constants/navData';
 
 export default function PageRoot() {
   const [activeTabName, setActiveTabName] = useState('');
   const activeTab = tabs.find(tab => tab.name === activeTabName) || tabs[0];
+
+  const { pages, isLoading } = usePagesByCategory(activeTabName);
 
   return (
     <CategoryLayout
@@ -37,9 +41,19 @@ export default function PageRoot() {
       </h1>
       {activeTabName === 'home' && <EmptyState />}
       {activeTabName !== 'home' && (
-        <div className="m-3 flex gap-4">
-          <BigIconCheckbox text="sobre mi" Icon={PiHeart} />
-          <BigIconCheckbox text="rutina de skin care" Icon={PiHandSoap} />
+        <div className="mx-8 flex flew-row flex-wrap gap-3">
+          {isLoading && 'Loading...'}
+          {pages &&
+            pages.map(({ id, name }) => {
+              const Icon = iconsByPageName[name];
+              return (
+                <BigIconCheckbox
+                  key={id}
+                  text="rutina de skin care"
+                  Icon={Icon}
+                />
+              );
+            })}
         </div>
       )}
     </CategoryLayout>
