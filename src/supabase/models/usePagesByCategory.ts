@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 
 type Page = {
-  id: string;
-  name: string;
+  app_id: string;
 };
 
 export default function usePagesByCategory(category: string) {
@@ -20,8 +19,8 @@ export default function usePagesByCategory(category: string) {
     }
 
     supabase
-      .from('page')
-      .select('id,name')
+      .from('pages')
+      .select('app_id')
       .eq('category', category)
       .then(({ data, error }) => {
         setPages(data || []);

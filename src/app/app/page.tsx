@@ -8,7 +8,7 @@ import BigIconCheckbox from './components/BigIconCheckbox';
 import BookmarkNav from './components/BookmarkNav';
 import CategoryLayout from './components/CategoryLayout';
 import { EmptyState } from './components/EmptyState';
-import { iconsByPageName } from './constants/iconsByPageName';
+import { iconsByPageId } from './constants/iconsByPageName';
 import { tabs } from './constants/navData';
 
 export default function PageRoot() {
@@ -44,11 +44,11 @@ export default function PageRoot() {
         <div className="mx-8 flex flew-row flex-wrap gap-3">
           {isLoading && 'Loading...'}
           {pages &&
-            pages.map(({ id, name }) => {
-              const Icon = iconsByPageName[name];
+            pages.map(({ app_id }) => {
+              const Icon = iconsByPageId[app_id];
               return (
                 <BigIconCheckbox
-                  key={id}
+                  key={app_id}
                   text="rutina de skin care"
                   Icon={Icon}
                 />

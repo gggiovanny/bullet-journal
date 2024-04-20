@@ -46,7 +46,7 @@ import { TiCalendarOutline, TiWeatherPartlySunny } from 'react-icons/ti';
 
 type IconsByPageType = Record<string, IconType>;
 
-export const iconsByPageName: IconsByPageType = {
+export const iconsByPageId: IconsByPageType = {
   about_me: PiHeart,
   skin_care_routine: PiHandSoap,
   exercise_routine: CgGym,
