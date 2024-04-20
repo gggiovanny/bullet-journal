@@ -17,6 +17,16 @@ export default function PageRoot() {
 
   const activeTab = tabs.find(tab => tab.name === activeTabName) || tabs[0];
 
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+
+  const handleIconCheck = (id: string, checked: boolean) => {
+    if (checked) {
+      setCheckedItems([...checkedItems, id]);
+    } else {
+      setCheckedItems(checkedItems.filter(item => item !== id));
+    }
+  };
+
   return (
     <CategoryLayout
       backgroundColor={activeTab.backgroundColor || activeTab.color}
@@ -47,11 +57,23 @@ export default function PageRoot() {
             {pages &&
               pages.map(({ app_id, name }) => {
                 const Icon = iconsByPageId[app_id];
-                return <BigIconCheckbox key={app_id} text={name} Icon={Icon} />;
+                return (
+                  <BigIconCheckbox
+                    key={app_id}
+                    id={app_id}
+                    text={name}
+                    Icon={Icon}
+                    handleChange={handleIconCheck}
+                    initialChecked={checkedItems.includes(app_id)}
+                  />
+                );
               })}
           </div>
         </div>
       )}
+      <pre>
+        {checkedItems.length > 0 && JSON.stringify(checkedItems, null, 2)}
+      </pre>
     </CategoryLayout>
   );
 }

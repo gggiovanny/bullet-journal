@@ -3,14 +3,24 @@ import { useState } from 'react';
 import { PiCheckBold } from 'react-icons/pi';
 
 type Props = {
+  id: string;
   text: string;
   Icon: any;
+  handleChange?: (id: string, checked: boolean) => void;
+  initialChecked?: boolean;
 };
 
-export default function BigIconCheckbox({ text, Icon: TargetIcon }: Props) {
-  const [checked, setChecked] = useState(false);
+export default function BigIconCheckbox({
+  text,
+  Icon: TargetIcon,
+  handleChange,
+  id,
+  initialChecked = false,
+}: Props) {
+  const [checked, setChecked] = useState(initialChecked);
 
   const handleClick = () => {
+    handleChange && handleChange(id, !checked);
     setChecked(!checked);
   };
 
