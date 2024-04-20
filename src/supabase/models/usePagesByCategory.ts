@@ -20,6 +20,10 @@ export default function usePagesByCategory(category: string) {
   const localeColumn = `locale_${locale}`;
 
   useEffect(() => {
+    setIsLoading(true);
+    setError(null);
+    setPages([]);
+
     if (!category) {
       setIsLoading(false);
       return;
