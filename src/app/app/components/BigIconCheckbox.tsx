@@ -14,11 +14,14 @@ export default function BigIconCheckbox({ text, Icon: TargetIcon }: Props) {
     setChecked(!checked);
   };
 
+  const sizeClases = 'w-[84px] h-[84px]';
+
   const Icon = checked ? PiCheckBold : TargetIcon;
   return (
     <div
       className={clsx(
-        'rounded-2.5xl text-melon bg-background-color w-20 h-20 flex flex-col justify-center items-center pb-2 px-3 pt-2',
+        sizeClases,
+        'rounded-2.5xl text-melon bg-background-color flex flex-col justify-center gap-1 items-center pb-2 px-3 pt-2',
         {
           'shadow-button-shadow': !checked,
           'shadow-button-inner-shadow': checked,
@@ -26,7 +29,7 @@ export default function BigIconCheckbox({ text, Icon: TargetIcon }: Props) {
       )}
       onClick={handleClick}
     >
-      <Icon size="40" />
+      <Icon size="46" />
       <span className="font-title font-extrabold text-xs text-center leading-[normal]">
         {text}
       </span>

@@ -13,9 +13,9 @@ import { tabs } from './constants/navData';
 
 export default function PageRoot() {
   const [activeTabName, setActiveTabName] = useState('');
-  const activeTab = tabs.find(tab => tab.name === activeTabName) || tabs[0];
-
   const { pages, isLoading } = usePagesByCategory(activeTabName);
+
+  const activeTab = tabs.find(tab => tab.name === activeTabName) || tabs[0];
 
   return (
     <CategoryLayout
@@ -41,18 +41,12 @@ export default function PageRoot() {
       </h1>
       {activeTabName === 'home' && <EmptyState />}
       {activeTabName !== 'home' && (
-        <div className="mx-8 flex flew-row flex-wrap gap-3">
+        <div className="ml-4 mr-3 flex flew-row flex-wrap gap-3 justify-center">
           {isLoading && 'Loading...'}
           {pages &&
-            pages.map(({ app_id }) => {
+            pages.map(({ app_id, name }) => {
               const Icon = iconsByPageId[app_id];
-              return (
-                <BigIconCheckbox
-                  key={app_id}
-                  text="rutina de skin care"
-                  Icon={Icon}
-                />
-              );
+              return <BigIconCheckbox key={app_id} text={name} Icon={Icon} />;
             })}
         </div>
       )}
