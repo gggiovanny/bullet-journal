@@ -9,9 +9,10 @@ import { supabase } from '../supabaseClient';
 type Page = {
   app_id: string;
   name: string;
+  category: string;
 };
 
-export default function usePagesByCategory(category: string) {
+export default function useJournalPages() {
   const [pages, setPages] = useState<Page[]>([]);
   const [error, setError] = useState<PostgrestError | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,22 +25,16 @@ export default function usePagesByCategory(category: string) {
     setError(null);
     setPages([]);
 
-    if (!category) {
-      setIsLoading(false);
-      return;
-    }
-
     supabase
       .from('pages')
-      .select(`app_id,${localeColumn}`)
-      .eq('category', category)
+      .select(`app_id,category,${localeColumn}`)
       .returns<WithLocaleColumn<Page>[]>()
       .then(({ data, error }) => {
         if (data) setPages(localizeResponse(data, localeColumn));
         setError(error);
         setIsLoading(false);
       });
-  }, [category, localeColumn]);
+  }, [localeColumn]);
 
   return { pages, error, isLoading };
 }

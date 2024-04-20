@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import usePagesByCategory from '@/supabase/models/usePagesByCategory';
+import useJournalPages from '@/supabase/models/useJournalPages';
 
 import BigIconCheckbox from './components/BigIconCheckbox';
 import BookmarkNav from './components/BookmarkNav';
@@ -13,7 +13,9 @@ import { tabs } from './constants/navData';
 
 export default function PageRoot() {
   const [activeTabName, setActiveTabName] = useState('');
-  const { pages, isLoading } = usePagesByCategory(activeTabName);
+  const { pages, isLoading } = useJournalPages();
+
+  const categoryPages = pages.filter(page => page.category === activeTabName);
 
   const activeTab = tabs.find(tab => tab.name === activeTabName) || tabs[0];
 
@@ -54,8 +56,8 @@ export default function PageRoot() {
         <div className="flex flex-row justify-center ml-4 mr-4">
           <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
             {isLoading && 'Loading...'}
-            {pages &&
-              pages.map(({ app_id, name }) => {
+            {categoryPages &&
+              categoryPages.map(({ app_id, name }) => {
                 const Icon = iconsByPageId[app_id];
                 return (
                   <BigIconCheckbox
