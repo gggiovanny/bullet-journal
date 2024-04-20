@@ -41,13 +41,15 @@ export default function PageRoot() {
       </h1>
       {activeTabName === 'home' && <EmptyState />}
       {activeTabName !== 'home' && (
-        <div className="ml-4 mr-3 flex flew-row flex-wrap gap-3 justify-center">
-          {isLoading && 'Loading...'}
-          {pages &&
-            pages.map(({ app_id, name }) => {
-              const Icon = iconsByPageId[app_id];
-              return <BigIconCheckbox key={app_id} text={name} Icon={Icon} />;
-            })}
+        <div className="flex flex-row justify-center ml-4 mr-4">
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+            {isLoading && 'Loading...'}
+            {pages &&
+              pages.map(({ app_id, name }) => {
+                const Icon = iconsByPageId[app_id];
+                return <BigIconCheckbox key={app_id} text={name} Icon={Icon} />;
+              })}
+          </div>
         </div>
       )}
     </CategoryLayout>
