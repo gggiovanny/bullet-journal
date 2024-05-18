@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { FaEye } from 'react-icons/fa';
 
+import { FloatingActionButton } from '@/components/FloatingActionButton';
 import useJournalPages from '@/supabase/models/useJournalPages';
 
 import BigIconCheckbox from './components/BigIconCheckbox';
@@ -11,8 +13,10 @@ import { EmptyState } from './components/EmptyState';
 import { iconsByPageId } from './constants/iconsByPageName';
 import { tabs } from './constants/navData';
 
+const HOME_PAGE_NAME = 'home';
+
 export default function PageRoot() {
-  const [activeTabName, setActiveTabName] = useState('');
+  const [activeTabName, setActiveTabName] = useState(HOME_PAGE_NAME);
   const { pages, isLoading } = useJournalPages();
 
   const categoryPages = pages.filter(page => page.category === activeTabName);
@@ -27,6 +31,10 @@ export default function PageRoot() {
     } else {
       setCheckedItems(checkedItems.filter(item => item !== id));
     }
+  };
+
+  const handleGoHome = () => {
+    setActiveTabName(HOME_PAGE_NAME);
   };
 
   return (
@@ -51,8 +59,8 @@ export default function PageRoot() {
       >
         {activeTab.title || activeTab.text}
       </h1>
-      {activeTabName === 'home' && <EmptyState />}
-      {activeTabName !== 'home' && (
+      {activeTabName === HOME_PAGE_NAME && <EmptyState />}
+      {activeTabName !== HOME_PAGE_NAME && (
         <div className="flex flex-row justify-center ml-4 mr-4">
           <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
             {isLoading && 'Loading...'}
@@ -76,6 +84,11 @@ export default function PageRoot() {
       <pre>
         {checkedItems.length > 0 && JSON.stringify(checkedItems, null, 2)}
       </pre>
+      {activeTabName !== HOME_PAGE_NAME && (
+        <FloatingActionButton onClick={handleGoHome}>
+          <FaEye size={20} />
+        </FloatingActionButton>
+      )}
     </CategoryLayout>
   );
 }
