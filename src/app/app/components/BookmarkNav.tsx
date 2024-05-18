@@ -1,4 +1,4 @@
-import { tabs } from '../constants/navData';
+import { categoryTabs } from '../constants/pageCategories';
 import BookmarkTab from './BookmarkTab';
 
 type Props = JSX.IntrinsicElements['nav'] & {
@@ -18,12 +18,12 @@ export default function BookmarkNav({
   return (
     <nav {...navProps}>
       <ul className="flex flex-col font-title text-sm font-normal text-text-color">
-        {tabs.map(({ text, color, name }, index) => {
+        {categoryTabs.map(({ nodeContent: text, color, id: name }, index) => {
           return (
             <BookmarkTab
               key={index}
               color={color}
-              zIndex={tabs.length - index}
+              zIndex={categoryTabs.length - index}
               isActive={name === activeTabName}
               onClick={createClickHandler(name)}
             >

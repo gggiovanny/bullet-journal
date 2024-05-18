@@ -11,7 +11,7 @@ import BookmarkNav from './components/BookmarkNav';
 import CategoryLayout from './components/CategoryLayout';
 import SelectedPagesList from './components/SelectedPagesList';
 import { iconsByPageId } from './constants/iconsByPageName';
-import { tabs } from './constants/navData';
+import { categoryTabs } from './constants/pageCategories';
 
 const HOME_PAGE_NAME = 'home';
 
@@ -21,7 +21,8 @@ export default function PageRoot() {
 
   const categoryPages = pages.filter(page => page.category === activeTabName);
 
-  const activeTab = tabs.find(tab => tab.name === activeTabName) || tabs[0];
+  const activeTab =
+    categoryTabs.find(tab => tab.id === activeTabName) || categoryTabs[0];
 
   const [selectedPages, setSelectedPages] = useState<string[]>([]);
 
@@ -57,7 +58,7 @@ export default function PageRoot() {
           transition: 'color 0.1s ease-in-out',
         }}
       >
-        {activeTab.title || activeTab.text}
+        {activeTab.title}
       </h1>
       {activeTabName !== HOME_PAGE_NAME && (
         <>

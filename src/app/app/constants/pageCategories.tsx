@@ -1,67 +1,72 @@
 import { TiHomeOutline } from 'react-icons/ti';
 
-type Tab = {
-  text: React.ReactNode;
+type CategoryTab = {
+  id: string;
+  nodeContent: React.ReactNode;
+  title?: string;
   color: string;
   titleColor: string;
-  name: string;
-  title?: string;
   backgroundColor?: string;
   fontSize: number;
   margins: string;
 };
 
-export const tabs: Tab[] = [
+export const categoryTabs: CategoryTab[] = [
   {
-    text: <TiHomeOutline size={20} />,
+    id: 'home',
+    nodeContent: <TiHomeOutline size={20} />,
+    title: 'crear',
     color: '#C6CAE9',
     titleColor: '#FFDBC3',
-    name: 'home',
-    title: 'crear',
     backgroundColor: '#FEF6E2',
     fontSize: 120,
     /* top | right | bottom | left */
     margins: '-69px 0 0 -5px',
   },
   {
-    text: 'personal',
+    id: 'personal',
+    nodeContent: 'personal',
     color: '#C6F0EE',
     titleColor: '#86E4E0',
-    name: 'personal',
     fontSize: 75,
     margins: '-30px 0 0 0px',
   },
   {
-    text: 'por mes',
+    id: 'monthly',
+    nodeContent: 'por mes',
     color: '#CAF1BC',
     titleColor: '#B5DAA8',
-    name: 'monthly',
     fontSize: 75,
     margins: '-30px 0 0 0px',
   },
   {
-    text: 'año en pixeles',
+    id: 'pixels',
+    nodeContent: 'año en pixeles',
+    title: 'pixeles',
     color: '#F2D4B1',
     titleColor: '#DABB98',
-    title: 'pixeles',
-    name: 'pixels',
     fontSize: 75,
     margins: '-30px 0 0 0px',
   },
   {
-    text: 'listas',
+    id: 'lists',
+    nodeContent: 'listas',
     color: '#F2B1B1',
     titleColor: '#D89A9A',
-    name: 'lists',
     fontSize: 75,
     margins: '-30px 0 0 0px',
   },
   {
-    text: 'creativo',
+    id: 'creative',
+    nodeContent: 'creativo',
     color: '#FBCAE1',
     titleColor: '#DEACC4',
-    name: 'creative',
     fontSize: 75,
     margins: '-30px 0 0 0px',
   },
-];
+].map(tab => {
+  // default value fixes
+  if (!tab.title) tab['title'] = tab.nodeContent as string;
+
+  return tab;
+});
