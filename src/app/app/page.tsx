@@ -9,7 +9,7 @@ import useJournalPages from '@/supabase/models/useJournalPages';
 import BigIconCheckbox from './components/BigIconCheckbox';
 import BookmarkNav from './components/BookmarkNav';
 import CategoryLayout from './components/CategoryLayout';
-import { EmptyState } from './components/EmptyState';
+import SelectedPagesList from './components/SelectedPagesList';
 import { iconsByPageId } from './constants/iconsByPageName';
 import { tabs } from './constants/navData';
 
@@ -23,13 +23,13 @@ export default function PageRoot() {
 
   const activeTab = tabs.find(tab => tab.name === activeTabName) || tabs[0];
 
-  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const [selectedPages, setSelectedPages] = useState<string[]>([]);
 
   const handleIconCheck = (id: string, checked: boolean) => {
     if (checked) {
-      setCheckedItems([...checkedItems, id]);
+      setSelectedPages([...selectedPages, id]);
     } else {
-      setCheckedItems(checkedItems.filter(item => item !== id));
+      setSelectedPages(selectedPages.filter(item => item !== id));
     }
   };
 
@@ -59,35 +59,34 @@ export default function PageRoot() {
       >
         {activeTab.title || activeTab.text}
       </h1>
-      {activeTabName === HOME_PAGE_NAME && <EmptyState />}
       {activeTabName !== HOME_PAGE_NAME && (
-        <div className="flex flex-row justify-center ml-4 mr-4">
-          <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
-            {isLoading && 'Loading...'}
-            {categoryPages &&
-              categoryPages.map(({ app_id, name }) => {
-                const Icon = iconsByPageId[app_id];
-                return (
-                  <BigIconCheckbox
-                    key={app_id}
-                    id={app_id}
-                    text={name}
-                    Icon={Icon}
-                    handleChange={handleIconCheck}
-                    initialChecked={checkedItems.includes(app_id)}
-                  />
-                );
-              })}
+        <>
+          <div className="flex flex-row justify-center ml-4 mr-4">
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+              {isLoading && 'Loading...'}
+              {categoryPages &&
+                categoryPages.map(({ app_id, name }) => {
+                  const Icon = iconsByPageId[app_id];
+                  return (
+                    <BigIconCheckbox
+                      key={app_id}
+                      id={app_id}
+                      text={name}
+                      Icon={Icon}
+                      handleChange={handleIconCheck}
+                      initialChecked={selectedPages.includes(app_id)}
+                    />
+                  );
+                })}
+            </div>
           </div>
-        </div>
+          <FloatingActionButton onClick={handleGoHome}>
+            <FaEye size={20} />
+          </FloatingActionButton>
+        </>
       )}
-      <pre>
-        {checkedItems.length > 0 && JSON.stringify(checkedItems, null, 2)}
-      </pre>
-      {activeTabName !== HOME_PAGE_NAME && (
-        <FloatingActionButton onClick={handleGoHome}>
-          <FaEye size={20} />
-        </FloatingActionButton>
+      {activeTabName === HOME_PAGE_NAME && (
+        <SelectedPagesList selectedPages={selectedPages} pages={pages} />
       )}
     </CategoryLayout>
   );

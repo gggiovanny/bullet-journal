@@ -6,7 +6,7 @@ import { useCurrentLocale } from '@/wip/useCurrentLocale';
 import { localizeResponse, WithLocaleColumn } from '../locale';
 import { supabase } from '../supabaseClient';
 
-type Page = {
+export type Page = {
   app_id: string;
   name: string;
   category: string;
