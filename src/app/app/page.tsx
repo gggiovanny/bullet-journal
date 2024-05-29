@@ -34,6 +34,10 @@ export default function PageRoot() {
     }
   };
 
+  const handleUnselect = (id: string) => {
+    setSelectedPages(selectedPages.filter(item => item !== id));
+  };
+
   const handleGoHome = () => {
     setActiveTabName(HOME_PAGE_NAME);
   };
@@ -87,7 +91,11 @@ export default function PageRoot() {
         </>
       )}
       {activeTabName === HOME_PAGE_NAME && (
-        <SelectedPagesList selectedPages={selectedPages} pages={pages} />
+        <SelectedPagesList
+          selectedPages={selectedPages}
+          allPages={pages}
+          handleUnselect={handleUnselect}
+        />
       )}
     </CategoryLayout>
   );

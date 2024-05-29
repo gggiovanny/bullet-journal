@@ -3,7 +3,7 @@ import { TiHomeOutline } from 'react-icons/ti';
 type CategoryTab = {
   id: string;
   nodeContent: React.ReactNode;
-  title?: string;
+  title: string;
   color: string;
   titleColor: string;
   backgroundColor?: string;
@@ -11,7 +11,7 @@ type CategoryTab = {
   margins: string;
 };
 
-export const categoryTabs: CategoryTab[] = [
+export const categoryTabs = [
   {
     id: 'home',
     nodeContent: <TiHomeOutline size={20} />,
@@ -69,4 +69,4 @@ export const categoryTabs: CategoryTab[] = [
   if (!tab.title) tab['title'] = tab.nodeContent as string;
 
   return tab;
-});
+}) as CategoryTab[];
