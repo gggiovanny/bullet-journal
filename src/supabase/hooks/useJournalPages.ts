@@ -5,12 +5,7 @@ import { useCurrentLocale } from '@/wip/useCurrentLocale';
 
 import { localizeResponse, WithLocaleColumn } from '../locale';
 import { supabase } from '../supabaseClient';
-
-export type Page = {
-  app_id: string;
-  name: string;
-  category: string;
-};
+import { Page } from '../types/models';
 
 export function useJournalPages() {
   const [pages, setPages] = useState<Page[]>([]);
@@ -27,7 +22,7 @@ export function useJournalPages() {
 
     supabase
       .from('pages')
-      .select(`app_id,category,${localeColumn}`)
+      .select(`id,app_id,category,${localeColumn}`)
       .returns<WithLocaleColumn<Page>[]>()
       .then(({ data, error }) => {
         if (data) setPages(localizeResponse(data, localeColumn));

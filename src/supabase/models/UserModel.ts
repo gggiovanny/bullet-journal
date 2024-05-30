@@ -1,6 +1,5 @@
-import { User } from '@supabase/supabase-js';
-
 import { supabase } from '../supabaseClient';
+import { User } from '../types/models';
 
 let userSingleton: User | undefined = undefined;
 
@@ -15,11 +14,8 @@ export class UserModel {
 
   /**
    * Request the current user from supabase.
-   * Use it on flows where is unknown if the user exists.
    */
   async requestUser() {
-    if (userSingleton) return userSingleton;
-
     const {
       data: { user },
     } = await supabase.auth.getUser();

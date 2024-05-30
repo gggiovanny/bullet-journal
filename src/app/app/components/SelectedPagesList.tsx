@@ -1,8 +1,12 @@
-import React from 'react';
+import clsx from 'clsx';
+import React, { useState } from 'react';
 import { BsBookmarkCheckFill } from 'react-icons/bs';
+import { FaPlus } from 'react-icons/fa';
+import { ImSpinner8 } from 'react-icons/im';
 import { IoTrashOutline } from 'react-icons/io5';
 
-import { Page } from '@/supabase/models/useJournalPages';
+import { Button } from '@/components/Button';
+import { Page, UserPagesModel } from '@/supabase';
 
 import { categoryTabs } from '../constants/pageCategories';
 import { EmptyState } from './EmptyState';
@@ -22,12 +26,16 @@ export default function SelectedPagesList({
   allPages,
   handleUnselect,
 }: Props) {
+  const [isCreationLoading, setIsCreationLoading] = useState(false);
+
   if (selectedPages.length === 0) return <EmptyState />;
+
+  const CreationIcon = isCreationLoading ? ImSpinner8 : FaPlus;
 
   const selectedPagesByCategory = selectedPages.reduce(
     (acc, selectedPageId) => {
       const selectedPage = allPages.find(
-        page => page.app_id === selectedPageId
+        page => page.id === selectedPageId
       ) as Page;
 
       return {
@@ -41,8 +49,22 @@ export default function SelectedPagesList({
     {} as PagesByCategory
   );
 
+  function handlePagesCreation() {
+    setIsCreationLoading(true);
+    const userPagesModel = new UserPagesModel();
+    userPagesModel
+      .createUserPages(selectedPages)
+      .then(pages => {
+        // eslint-disable-next-line no-console
+        console.log(pages);
+      })
+      .finally(() => {
+        setIsCreationLoading(false);
+      });
+  }
+
   return (
-    <div className="flex flex-col gap-3 mx-6">
+    <div className="flex flex-col gap-3 mx-6 justify-start h-full">
       {Object.entries(selectedPagesByCategory).map(
         ([categoryId, categoryPages]) => {
           const categoryData = categoryTabs.find(tab => tab.id === categoryId);
@@ -65,7 +87,7 @@ export default function SelectedPagesList({
                     <span>{page.name}</span>
                     <IoTrashOutline
                       className="opacity-20 hover:opacity-50"
-                      onClick={() => handleUnselect(page.app_id)}
+                      onClick={() => handleUnselect(page.id)}
                     />
                   </li>
                 ))}
@@ -74,6 +96,18 @@ export default function SelectedPagesList({
           );
         }
       )}
+
+      <Button
+        className="text-deep-blue mt-auto mb-2"
+        onClick={handlePagesCreation}
+      >
+        <CreationIcon
+          className={clsx('text-melon', {
+            'animate-spin': isCreationLoading,
+          })}
+        />
+        crear
+      </Button>
     </div>
   );
 }

@@ -70,16 +70,16 @@ export default function PageRoot() {
             <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
               {isLoading && 'Loading...'}
               {categoryPages &&
-                categoryPages.map(({ app_id, name }) => {
+                categoryPages.map(({ id, app_id, name }) => {
                   const Icon = iconsByPageId[app_id];
                   return (
                     <BigIconCheckbox
-                      key={app_id}
-                      id={app_id}
+                      key={id}
+                      id={id}
                       text={name}
                       Icon={Icon}
                       handleChange={handleIconCheck}
-                      initialChecked={selectedPages.includes(app_id)}
+                      initialChecked={selectedPages.includes(id)}
                     />
                   );
                 })}
