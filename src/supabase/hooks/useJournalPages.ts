@@ -12,7 +12,7 @@ export type Page = {
   category: string;
 };
 
-export default function useJournalPages() {
+export function useJournalPages() {
   const [pages, setPages] = useState<Page[]>([]);
   const [error, setError] = useState<PostgrestError | null>(null);
   const [isLoading, setIsLoading] = useState(true);

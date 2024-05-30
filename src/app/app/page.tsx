@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { FaEye } from 'react-icons/fa';
 
 import { FloatingActionButton } from '@/components/FloatingActionButton';
-import useJournalPages from '@/supabase/models/useJournalPages';
+import { useJournalPages } from '@/supabase';
 
 import BigIconCheckbox from './components/BigIconCheckbox';
 import BookmarkNav from './components/BookmarkNav';

@@ -1,1 +1,2 @@
-export * from './useAuthenticatedClient';
+export * from './useAuthenticatedUser';
+export * from './useJournalPages';
