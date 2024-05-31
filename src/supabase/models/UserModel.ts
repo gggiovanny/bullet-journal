@@ -25,7 +25,7 @@ export class UserModel {
       return userSingleton;
     }
 
-    this.signIn();
+    await this.signIn();
 
     return undefined;
   }

@@ -1,11 +1,34 @@
-import Link from 'next/link';
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { FaBookmark } from 'react-icons/fa';
+import { ImSpinner8 } from 'react-icons/im';
 
 import { Button } from '@/components/Button';
+import { UserModel } from '@/supabase';
 
-import { appRoute } from './app/link';
+async function getTargetRoute() {
+  const userModel = new UserModel();
+  await userModel.requestUser();
+
+  const hasSelectedPages = false;
+
+  if (hasSelectedPages) return '/pages/1';
+
+  return '/pages-setup';
+}
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleOpenJournal = async () => {
+    setIsLoading(true);
+    const targetRoute = await getTargetRoute();
+    router.push(targetRoute);
+  };
+
   return (
     <main className="min-h-screen px-8 py-5">
       <div className="w-[222px] h-[213px]">
@@ -29,12 +52,14 @@ export default function Home() {
           />
         ))}
       </div>
-      <Link href={appRoute}>
-        <Button className="mt-8">
+      <Button className="mt-8" onClick={handleOpenJournal}>
+        {isLoading ? (
+          <ImSpinner8 className="animate-spin text-icon-color" />
+        ) : (
           <FaBookmark className="text-icon-color" />
-          abrir
-        </Button>
-      </Link>
+        )}
+        abrir
+      </Button>
       <svg
         className="mt-9 absolute right-0"
         xmlns="http://www.w3.org/2000/svg"
