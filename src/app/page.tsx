@@ -6,11 +6,11 @@ import { FaBookmark } from 'react-icons/fa';
 import { ImSpinner8 } from 'react-icons/im';
 
 import { Button } from '@/components/Button';
-import { UserModel } from '@/supabase';
+import { CurrentUserModel } from '@/supabase';
 
 async function getTargetRoute() {
-  const userModel = new UserModel();
-  await userModel.requestUser();
+  const user = new CurrentUserModel();
+  await user.get();
 
   const hasSelectedPages = false;
 

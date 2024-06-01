@@ -51,9 +51,9 @@ export default function SelectedPagesList({
 
   function handlePagesCreation() {
     setIsCreationLoading(true);
-    const userPagesModel = new UserPagesModel();
-    userPagesModel
-      .createUserPages(selectedPages)
+    const userPages = new UserPagesModel();
+    userPages
+      .create(selectedPages)
       .then(pages => {
         // eslint-disable-next-line no-console
         console.log(pages);

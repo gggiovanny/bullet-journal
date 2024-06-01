@@ -3,19 +3,21 @@ import { User } from '../types/models';
 
 let userSingleton: User | undefined = undefined;
 
-export class UserModel {
+export class CurrentUserModel {
   /**
    * Gets the memoized current user.
    * Use it on flows where iss known the user already exists
    */
-  get user() {
+  get cached() {
     return userSingleton;
   }
 
   /**
    * Request the current user from supabase.
    */
-  async requestUser() {
+  async get() {
+    if (userSingleton) return userSingleton;
+
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -28,6 +30,11 @@ export class UserModel {
     await this.signIn();
 
     return undefined;
+  }
+
+  async id() {
+    const user = (await this.get()) as User;
+    return user.id;
   }
 
   private signIn() {

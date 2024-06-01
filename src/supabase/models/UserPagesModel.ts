@@ -1,27 +1,59 @@
+import { PostgrestError } from '@supabase/supabase-js';
+
 import { supabase } from '../supabaseClient';
-import { UserModel } from './UserModel';
+import { UserPage } from '../types/models';
+import { CurrentUserModel } from './UserModel';
 
 export class UserPagesModel {
-  private userModel: UserModel;
+  private user: CurrentUserModel;
 
   constructor() {
-    this.userModel = new UserModel();
+    this.user = new CurrentUserModel();
   }
 
-  async createUserPages(selectedPageIds: string[]) {
-    const user_id = this.userModel.user?.id;
-
-    if (!user_id) throw new Error('User not found');
-
-    const insertPayload = selectedPageIds.map(id => ({ page_id: id, user_id }));
+  async create(selectedPageIds: string[]) {
+    const user_id = await this.user.id();
+    const insertPayload = selectedPageIds.map(id => ({
+      page_id: id,
+      user_id,
+    }));
 
     const { data, error } = await supabase
       .from('user_pages')
-      .insert(insertPayload)
-      .select();
+      .insert(insertPayload);
 
-    if (error) throw Error(JSON.stringify(error));
+    this.handleError(error);
 
     return data;
+  }
+
+  async get(id: string | number) {
+    const { data, error } = await supabase
+      .from('user_pages')
+      .select('id,page_id')
+      .eq('id', id)
+      .returns<UserPage[]>();
+
+    this.handleError(error);
+
+    const [firstPage] = data || [];
+
+    return firstPage;
+  }
+
+  async getAll() {
+    const { data, error } = await supabase
+      .from('user_pages')
+      .select('id,page_id')
+      .returns<UserPage[]>();
+
+    this.handleError(error);
+
+    return data;
+  }
+
+  private handleError(error: PostgrestError | null) {
+    // eslint-disable-next-line no-console
+    if (error) throw Error(JSON.stringify(error));
   }
 }
