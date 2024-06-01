@@ -27,25 +27,18 @@ export class UserPagesModel {
     return data;
   }
 
-  async get(id: string | number) {
+  async get(pageNumber: number | string = 1) {
+    const pageNumberZeroBased = Number(pageNumber) - 1;
+
     const { data, error } = await supabase
       .from('user_pages')
       .select('id,page_id')
-      .eq('id', id)
-      .returns<UserPage[]>();
-
-    this.handleError(error);
-
-    const [firstPage] = data || [];
-
-    return firstPage;
-  }
-
-  async getAll() {
-    const { data, error } = await supabase
-      .from('user_pages')
-      .select('id,page_id')
-      .returns<UserPage[]>();
+      .eq('user_id', await this.user.id())
+      .order('id', { ascending: true })
+      .range(pageNumberZeroBased, pageNumberZeroBased)
+      .limit(1)
+      .returns<UserPage>()
+      .single();
 
     this.handleError(error);
 
