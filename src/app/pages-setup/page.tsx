@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FaEye } from 'react-icons/fa';
 
 import { FloatingActionButton } from '@/components/FloatingActionButton';
+import { FullPageLoading } from '@/components/FullPageLoading';
 import { useJournalPages } from '@/supabase';
 
 import BigIconCheckbox from './components/BigIconCheckbox';
@@ -17,7 +18,7 @@ const HOME_PAGE_NAME = 'home';
 
 export default function PageRoot() {
   const [activeTabName, setActiveTabName] = useState(HOME_PAGE_NAME);
-  const { pages, isLoading } = useJournalPages();
+  const { pages, isLoading: isLoadingPages } = useJournalPages();
 
   const categoryPages = pages.filter(page => page.category === activeTabName);
 
@@ -66,11 +67,11 @@ export default function PageRoot() {
       </h1>
       {activeTabName !== HOME_PAGE_NAME && (
         <>
-          <div className="flex flex-row justify-center ml-4 mr-4">
-            <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
-              {isLoading && 'Loading...'}
-              {categoryPages &&
-                categoryPages.map(({ id, app_id, name }) => {
+          {isLoadingPages && <FullPageLoading />}
+          {categoryPages && (
+            <div className="flex flex-row justify-center ml-4 mr-4">
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+                {categoryPages.map(({ id, app_id, name }) => {
                   const Icon = iconsByPageId[app_id];
                   return (
                     <BigIconCheckbox
@@ -83,8 +84,9 @@ export default function PageRoot() {
                     />
                   );
                 })}
+              </div>
             </div>
-          </div>
+          )}
           <FloatingActionButton onClick={handleGoHome}>
             <FaEye size={20} />
           </FloatingActionButton>
