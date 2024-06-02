@@ -7,8 +7,8 @@ import { CurrentUserModel } from './UserModel';
 export class UserPagesModel {
   private user: CurrentUserModel;
 
-  constructor() {
-    this.user = new CurrentUserModel();
+  constructor(currentUser = new CurrentUserModel()) {
+    this.user = currentUser;
   }
 
   async create(selectedPageIds: string[]) {
@@ -38,7 +38,7 @@ export class UserPagesModel {
       .range(pageNumberZeroBased, pageNumberZeroBased)
       .limit(1)
       .returns<UserPage>()
-      .single();
+      .maybeSingle();
 
     this.handleError(error);
 

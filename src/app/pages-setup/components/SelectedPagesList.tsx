@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { BsBookmarkCheckFill } from 'react-icons/bs';
 import { FaPlus } from 'react-icons/fa';
@@ -26,6 +27,7 @@ export default function SelectedPagesList({
   allPages,
   handleUnselect,
 }: Props) {
+  const router = useRouter();
   const [isCreationLoading, setIsCreationLoading] = useState(false);
 
   if (selectedPages.length === 0) return <EmptyState />;
@@ -54,9 +56,8 @@ export default function SelectedPagesList({
     const userPages = new UserPagesModel();
     userPages
       .create(selectedPages)
-      .then(pages => {
-        // eslint-disable-next-line no-console
-        console.log(pages);
+      .then(() => {
+        router.push('/pages/1');
       })
       .finally(() => {
         setIsCreationLoading(false);

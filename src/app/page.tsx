@@ -12,7 +12,7 @@ async function getTargetRoute() {
   const user = new CurrentUserModel();
   await user.get();
 
-  const hasSelectedPages = false;
+  const hasSelectedPages = Boolean(await user.pages.get());
 
   if (hasSelectedPages) return '/pages/1';
 

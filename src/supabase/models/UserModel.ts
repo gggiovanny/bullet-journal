@@ -1,9 +1,16 @@
 import { supabase } from '../supabaseClient';
 import { User } from '../types/models';
+import { UserPagesModel } from './UserPagesModel';
 
 let userSingleton: User | undefined = undefined;
 
 export class CurrentUserModel {
+  pages: UserPagesModel;
+
+  constructor() {
+    this.pages = new UserPagesModel(this);
+  }
+
   /**
    * Gets the memoized current user.
    * Use it on flows where iss known the user already exists
