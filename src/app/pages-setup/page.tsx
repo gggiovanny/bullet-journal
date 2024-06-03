@@ -16,7 +16,7 @@ import { categoryTabs } from './constants/pageCategories';
 
 const HOME_PAGE_NAME = 'home';
 
-let alreadySelectedPages: string[] = [];
+let persistedSelectedPages: string[] = [];
 
 // TODO: fix double requests due to weird re-rendering
 export default function PageRoot() {
@@ -39,6 +39,8 @@ export default function PageRoot() {
   };
 
   const handleUnselect = (id: string) => {
+    if (persistedSelectedPages.includes(id)) return;
+
     setSelectedPages(selectedPages.filter(item => item !== id));
   };
 
@@ -52,7 +54,7 @@ export default function PageRoot() {
     userPages
       .getSelected()
       .then(data => {
-        alreadySelectedPages = data;
+        persistedSelectedPages = data;
         const uniqueValues = new Set([...selectedPages, ...data]);
         setSelectedPages(Array.from(uniqueValues));
       })
@@ -100,6 +102,7 @@ export default function PageRoot() {
                     Icon={Icon}
                     handleChange={handleIconCheck}
                     initialChecked={selectedPages.includes(id)}
+                    disabled={persistedSelectedPages.includes(id)}
                   />
                 );
               })}
@@ -115,7 +118,7 @@ export default function PageRoot() {
           selectedPages={selectedPages}
           allPages={pages}
           handleUnselect={handleUnselect}
-          persistedSelectedPages={alreadySelectedPages}
+          persistedSelectedPages={persistedSelectedPages}
         />
       )}
     </CategoryLayout>

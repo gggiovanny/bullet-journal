@@ -8,6 +8,7 @@ type Props = {
   Icon: any;
   handleChange?: (id: string, checked: boolean) => void;
   initialChecked?: boolean;
+  disabled?: boolean;
 };
 
 export default function BigIconCheckbox({
@@ -16,10 +17,13 @@ export default function BigIconCheckbox({
   handleChange,
   id,
   initialChecked = false,
+  disabled = false,
 }: Props) {
   const [checked, setChecked] = useState(initialChecked);
 
   const handleClick = () => {
+    if (disabled) return;
+
     handleChange && handleChange(id, !checked);
     setChecked(!checked);
   };
@@ -35,6 +39,7 @@ export default function BigIconCheckbox({
         {
           'shadow-button-shadow': !checked,
           'shadow-button-inner-shadow': checked,
+          'opacity-50': disabled,
         }
       )}
       onClick={handleClick}
