@@ -8,6 +8,7 @@ import { ImSpinner8 } from 'react-icons/im';
 import { IoTrashOutline } from 'react-icons/io5';
 
 import { Button } from '@/components/Button';
+import { useToast } from '@/components/ui/use-toast';
 import { Page, UserPagesModel } from '@/supabase';
 
 import { categoryTabs } from '../constants/pageCategories';
@@ -31,6 +32,8 @@ export default function SelectedPagesList({
   persistedSelectedPages,
 }: Props) {
   const router = useRouter();
+  const { toast } = useToast();
+
   const [isCreationLoading, setIsCreationLoading] = useState(false);
 
   if (selectedPages.length === 0) return <EmptyState />;
@@ -61,6 +64,9 @@ export default function SelectedPagesList({
       // create the new selected pages and not the persisted ones
       .create(_.difference(selectedPages, persistedSelectedPages))
       .then(() => {
+        toast({
+          title: 'Tu agenda está lista!',
+        });
         router.push('/pages/1');
       })
       .finally(() => {
