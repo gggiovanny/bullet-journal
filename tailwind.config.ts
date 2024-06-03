@@ -8,25 +8,6 @@ const creamyMelon = '#FFDBC3';
 const softMelocoton = '#FEF6E2';
 const white = '#FFFFFF';
 
-function addColorVars({ addBase, theme }) {
-  function extractColorVars(colorObj, colorGroup = '') {
-    return Object.keys(colorObj).reduce((vars, colorKey) => {
-      const value = colorObj[colorKey];
-
-      const newVars =
-        typeof value === 'string'
-          ? { [`--color${colorGroup}-${colorKey}`]: value }
-          : extractColorVars(value, `-${colorKey}`);
-
-      return { ...vars, ...newVars };
-    }, {});
-  }
-
-  addBase({
-    ':root': extractColorVars(theme('colors')),
-  });
-}
-
 const config: Config = {
   darkMode: ['class'],
   content: [
@@ -92,6 +73,26 @@ const config: Config = {
       },
     },
   },
-  plugins: [addColorVars(), require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    function ({ addBase, theme }) {
+      function extractColorVars(colorObj, colorGroup = '') {
+        return Object.keys(colorObj).reduce((vars, colorKey) => {
+          const value = colorObj[colorKey];
+
+          const newVars =
+            typeof value === 'string'
+              ? { [`--color${colorGroup}-${colorKey}`]: value }
+              : extractColorVars(value, `-${colorKey}`);
+
+          return { ...vars, ...newVars };
+        }, {});
+      }
+
+      addBase({
+        ':root': extractColorVars(theme('colors')),
+      });
+    },
+  ],
 };
 export default config;

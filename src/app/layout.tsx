@@ -4,6 +4,8 @@ import clsx from 'clsx';
 import type { Metadata } from 'next';
 import { Almarai, Arapey } from 'next/font/google';
 
+import { Toaster } from '@/components/ui/toaster';
+
 const almarai = Almarai({
   weight: ['400', '700', '800'],
   subsets: ['arabic'],
@@ -31,6 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={clsx('min-w-72', almarai.variable, arapey.variable)}>
         {children}
+        <Toaster />
       </body>
     </html>
   );
