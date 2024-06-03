@@ -16,6 +16,8 @@ import { categoryTabs } from './constants/pageCategories';
 
 const HOME_PAGE_NAME = 'home';
 
+let alreadySelectedPages: string[] = [];
+
 // TODO: fix double requests due to weird re-rendering
 export default function PageRoot() {
   const [activeTabName, setActiveTabName] = useState(HOME_PAGE_NAME);
@@ -52,6 +54,7 @@ export default function PageRoot() {
     userPages
       .getSelected()
       .then(data => {
+        alreadySelectedPages = data;
         const uniqueValues = new Set([...selectedPages, ...data]);
         setSelectedPages(Array.from(uniqueValues));
       })
@@ -114,6 +117,7 @@ export default function PageRoot() {
           selectedPages={selectedPages}
           allPages={pages}
           handleUnselect={handleUnselect}
+          persistedSelectedPages={alreadySelectedPages}
         />
       )}
     </CategoryLayout>

@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import * as _ from 'lodash-es';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { BsBookmarkCheckFill } from 'react-icons/bs';
@@ -16,6 +17,7 @@ type Props = {
   selectedPages: string[];
   allPages: Page[];
   handleUnselect: (id: string) => void;
+  persistedSelectedPages: string[];
 };
 
 type PagesByCategory = {
@@ -26,6 +28,7 @@ export default function SelectedPagesList({
   selectedPages,
   allPages,
   handleUnselect,
+  persistedSelectedPages,
 }: Props) {
   const router = useRouter();
   const [isCreationLoading, setIsCreationLoading] = useState(false);
@@ -55,7 +58,8 @@ export default function SelectedPagesList({
     setIsCreationLoading(true);
     const userPages = new UserPagesModel();
     userPages
-      .create(selectedPages)
+      // create the new selected pages and not the persisted ones
+      .create(_.difference(selectedPages, persistedSelectedPages))
       .then(() => {
         router.push('/pages/1');
       })
@@ -86,10 +90,12 @@ export default function SelectedPagesList({
                   >
                     <BsBookmarkCheckFill />
                     <span>{page.name}</span>
-                    <IoTrashOutline
-                      className="opacity-20 hover:opacity-50"
-                      onClick={() => handleUnselect(page.id)}
-                    />
+                    {!persistedSelectedPages.includes(page.id) && (
+                      <IoTrashOutline
+                        className="opacity-20 hover:opacity-50"
+                        onClick={() => handleUnselect(page.id)}
+                      />
+                    )}
                   </li>
                 ))}
               </ul>
