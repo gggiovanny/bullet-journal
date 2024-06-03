@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaEye } from 'react-icons/fa';
 
 import { FloatingActionButton } from '@/components/FloatingActionButton';
 import { FullPageLoading } from '@/components/FullPageLoading';
-import { useJournalPages } from '@/supabase';
+import { useJournalPages, UserPagesModel } from '@/supabase';
 
 import BigIconCheckbox from './components/BigIconCheckbox';
 import BookmarkNav from './components/BookmarkNav';
@@ -19,6 +19,8 @@ const HOME_PAGE_NAME = 'home';
 export default function PageRoot() {
   const [activeTabName, setActiveTabName] = useState(HOME_PAGE_NAME);
   const { pages, isLoading: isLoadingPages } = useJournalPages();
+  const [isLoadingSelectedPages, setisLoadingSelectedPages] = useState(false);
+  const isLoading = isLoadingPages || isLoadingSelectedPages;
 
   const categoryPages = pages.filter(page => page.category === activeTabName);
 
@@ -43,6 +45,21 @@ export default function PageRoot() {
     setActiveTabName(HOME_PAGE_NAME);
   };
 
+  useEffect(() => {
+    setisLoadingSelectedPages(true);
+    const userPages = new UserPagesModel();
+    userPages
+      .getSelected()
+      .then(data => {
+        const uniqueValues = new Set([...selectedPages, ...data]);
+        setSelectedPages(Array.from(uniqueValues));
+      })
+      .finally(() => {
+        setisLoadingSelectedPages(false);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // only executing this once
+
   return (
     <CategoryLayout
       backgroundColor={activeTab.backgroundColor || activeTab.color}
@@ -65,34 +82,33 @@ export default function PageRoot() {
       >
         {activeTab.title}
       </h1>
-      {activeTabName !== HOME_PAGE_NAME && (
+      {isLoading && <FullPageLoading />}
+
+      {!isLoading && activeTabName !== HOME_PAGE_NAME && (
         <>
-          {isLoadingPages && <FullPageLoading />}
-          {categoryPages && (
-            <div className="flex flex-row justify-center ml-4 mr-4">
-              <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
-                {categoryPages.map(({ id, app_id, name }) => {
-                  const Icon = iconsByPageId[app_id];
-                  return (
-                    <BigIconCheckbox
-                      key={id}
-                      id={id}
-                      text={name}
-                      Icon={Icon}
-                      handleChange={handleIconCheck}
-                      initialChecked={selectedPages.includes(id)}
-                    />
-                  );
-                })}
-              </div>
+          <div className="flex flex-row justify-center ml-4 mr-4">
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+              {categoryPages.map(({ id, app_id, name }) => {
+                const Icon = iconsByPageId[app_id];
+                return (
+                  <BigIconCheckbox
+                    key={id}
+                    id={id}
+                    text={name}
+                    Icon={Icon}
+                    handleChange={handleIconCheck}
+                    initialChecked={selectedPages.includes(id)}
+                  />
+                );
+              })}
             </div>
-          )}
+          </div>
           <FloatingActionButton onClick={handleGoHome}>
             <FaEye size={20} />
           </FloatingActionButton>
         </>
       )}
-      {activeTabName === HOME_PAGE_NAME && (
+      {!isLoading && activeTabName === HOME_PAGE_NAME && (
         <SelectedPagesList
           selectedPages={selectedPages}
           allPages={pages}

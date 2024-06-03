@@ -45,6 +45,20 @@ export class UserPagesModel {
     return data;
   }
 
+  async getSelected(): Promise<string[]> {
+    const { data, error } = await supabase
+      .from('user_pages')
+      .select('page_id')
+      .eq('user_id', await this.user.id())
+      .returns<Array<{ page_id: string }>>();
+
+    this.handleError(error);
+
+    if (!data) return [];
+
+    return data.map(page => page.page_id);
+  }
+
   private handleError(error: PostgrestError | null) {
     // eslint-disable-next-line no-console
     if (error) throw Error(JSON.stringify(error));
