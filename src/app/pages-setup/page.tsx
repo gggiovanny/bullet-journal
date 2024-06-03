@@ -23,14 +23,12 @@ export default function PageRoot() {
   const [activeTabName, setActiveTabName] = useState(HOME_PAGE_NAME);
   const { pages, isLoading: isLoadingPages } = useJournalPages();
   const [isLoadingSelectedPages, setisLoadingSelectedPages] = useState(false);
+  const [selectedPages, setSelectedPages] = useState<string[]>([]);
+
   const isLoading = isLoadingPages || isLoadingSelectedPages;
-
   const categoryPages = pages.filter(page => page.category === activeTabName);
-
   const activeTab =
     categoryTabs.find(tab => tab.id === activeTabName) || categoryTabs[0];
-
-  const [selectedPages, setSelectedPages] = useState<string[]>([]);
 
   const handleIconCheck = (id: string, checked: boolean) => {
     if (checked) {
