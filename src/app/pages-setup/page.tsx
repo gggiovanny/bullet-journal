@@ -16,6 +16,7 @@ import { categoryTabs } from './constants/pageCategories';
 
 const HOME_PAGE_NAME = 'home';
 
+// TODO: fix double requests due to weird re-rendering
 export default function PageRoot() {
   const [activeTabName, setActiveTabName] = useState(HOME_PAGE_NAME);
   const { pages, isLoading: isLoadingPages } = useJournalPages();

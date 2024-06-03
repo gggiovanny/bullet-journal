@@ -7,6 +7,7 @@ import { localizeResponse, WithLocaleColumn } from '../locale';
 import { supabase } from '../supabaseClient';
 import { Page } from '../types/models';
 
+// TODO: move this to a model
 export function useJournalPages() {
   const [pages, setPages] = useState<Page[]>([]);
   const [error, setError] = useState<PostgrestError | null>(null);
