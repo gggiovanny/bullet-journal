@@ -23,6 +23,7 @@
     ]
   },
   "dependencies": {
+    "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-toast": "^1.1.5",
     "@supabase/supabase-js": "^2.42.3",
     "class-variance-authority": "^0.7.0",
