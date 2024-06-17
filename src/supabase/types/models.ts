@@ -5,6 +5,7 @@ export { User };
 export interface UserPage {
   id: string;
   page_id: Page['id'];
+  name: Page['name'];
 }
 
 export interface Page {

@@ -1,11 +1,14 @@
 import cn from 'clsx';
 import React from 'react';
-import {
-  IoIosArrowBack,
-  IoIosArrowDown,
-  IoIosArrowForward,
-} from 'react-icons/io';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { UserPage } from '@/supabase';
 
 type Props = {
@@ -18,6 +21,7 @@ type Props = {
 
 export function Paginator({
   currentPage,
+  pageList,
   handleNextPage,
   handlePreviousPage,
   className,
@@ -37,11 +41,25 @@ export function Paginator({
       <div
         className={cn(
           surfaceClasses,
-          'flex-grow flex flex-row justify-center gap-2 items-center'
+          'p-0 flex-grow flex flex-row justify-center gap-2 items-center'
         )}
       >
-        <span className="text-text-color font-bold">{currentPage.name}</span>
-        <IoIosArrowDown size={20} />
+        <Select>
+          <SelectTrigger className="border-none py-1 h-full justify-center gap-2 text-text-color font-bold text-sm">
+            <SelectValue placeholder={currentPage.name} />
+          </SelectTrigger>
+          <SelectContent>
+            {pageList.map(page => (
+              <SelectItem
+                key={page.id}
+                value={page.id}
+                className="text-text-color text-sm"
+              >
+                {page.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div
         className={cn(surfaceClasses, 'rounded-r-2xl')}
