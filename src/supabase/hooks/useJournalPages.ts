@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { useCurrentLocale } from '@/wip/useCurrentLocale';
 
-import { localizeResponse, WithLocaleColumn } from '../locale';
+import { localizeResponseArray, WithLocaleColumn } from '../locale';
 import { supabase } from '../supabaseClient';
 import { Page } from '../types/models';
 
@@ -26,7 +26,7 @@ export function useJournalPages() {
       .select(`id,app_id,category,${localeColumn}`)
       .returns<WithLocaleColumn<Page>[]>()
       .then(({ data, error }) => {
-        if (data) setPages(localizeResponse(data, localeColumn));
+        if (data) setPages(localizeResponseArray(data, localeColumn));
         setError(error);
         setIsLoading(false);
       });
