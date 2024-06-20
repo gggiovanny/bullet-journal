@@ -26,7 +26,7 @@ export function Paginator({
   handlePreviousPage,
   className,
 }: Props) {
-  const surfaceClasses = 'p-1 bg-white shadow-button-shadow';
+  const surfaceClasses = 'p-1 bg-white shadow-button-shadow z-50';
 
   return (
     <div
@@ -45,7 +45,7 @@ export function Paginator({
         )}
       >
         <Select>
-          <SelectTrigger className="border-none py-1 h-full justify-center gap-2 text-text-color font-bold text-sm">
+          <SelectTrigger className="border-none h-full justify-center gap-2 font-bold">
             <SelectValue placeholder={currentPage.name} />
           </SelectTrigger>
           <SelectContent>
@@ -53,7 +53,8 @@ export function Paginator({
               <SelectItem
                 key={page.id}
                 value={page.id}
-                className="text-text-color text-sm"
+                hideIndicator
+                className="font-bold pl-2 justify-center"
               >
                 {page.name}
               </SelectItem>
