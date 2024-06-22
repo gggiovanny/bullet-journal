@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { FullPageLoading } from '@/components/FullPageLoading';
 import { UserPage as UserPageType, UserPagesModel } from '@/supabase';
 
+import { ProfilePicWidget } from '../widgets/ProfilePicWidget';
 import { Paginator } from './components/Paginator';
 
 type Props = { params: { id: string } };
@@ -71,6 +72,15 @@ export default function UserPage({ params: { id } }: Props) {
             isFirstPage={isFirstPage}
             isLastPage={isLastPage}
           />
+          <div className="flex flex-row justify-center pt-5 pb-3">
+            <ProfilePicWidget
+              onUploadClick={() => {
+                // eslint-disable-next-line no-console
+                console.log('onUploadClick');
+              }}
+              imageSrc={'https://github.com/shadcn.png'}
+            />
+          </div>
         </div>
       )}
     </>
