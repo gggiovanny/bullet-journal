@@ -27,6 +27,7 @@ const config: Config = {
       fontFamily: {
         title: ['var(--font-almarai)'],
         italic: ['var(--font-arapey)'], // for italics
+        typewriter: ['var(--font-typewriter)'],
       },
       colors: {
         // Color names. Only to be used in branded elements

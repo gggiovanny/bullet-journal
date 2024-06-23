@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { FullPageLoading } from '@/components/FullPageLoading';
+import { Input } from '@/components/ui/input';
 import { UserPage as UserPageType, UserPagesModel } from '@/supabase';
 
 import { ProfilePicWidget } from '../widgets/ProfilePicWidget';
@@ -72,7 +73,7 @@ export default function UserPage({ params: { id } }: Props) {
             isFirstPage={isFirstPage}
             isLastPage={isLastPage}
           />
-          <div className="flex flex-row justify-center pt-5 pb-3">
+          <div className="flex flex-row justify-center my-5">
             <ProfilePicWidget
               onUploadClick={() => {
                 // eslint-disable-next-line no-console
@@ -81,6 +82,7 @@ export default function UserPage({ params: { id } }: Props) {
               imageSrc={'https://github.com/shadcn.png'}
             />
           </div>
+          <Input type="text" placeholder="mi nombre es..." />
         </div>
       )}
     </>
