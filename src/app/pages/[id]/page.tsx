@@ -9,6 +9,7 @@ import { UserPage as UserPageType, UserPagesModel } from '@/supabase';
 
 import { ProfilePicWidget } from '../widgets/ProfilePicWidget';
 import { Paginator } from './components/Paginator';
+import { ZodiacSignSelector } from './components/ZodiacSignSelector';
 
 type Props = { params: { id: string } };
 
@@ -83,6 +84,7 @@ export default function UserPage({ params: { id } }: Props) {
             />
           </div>
           <Input type="text" placeholder="mi nombre es..." />
+          <ZodiacSignSelector />
         </div>
       )}
     </>

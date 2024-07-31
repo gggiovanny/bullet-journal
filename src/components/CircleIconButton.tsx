@@ -5,13 +5,13 @@ export type ButtonProps = JSX.IntrinsicElements['button'] & {
   className?: string;
 };
 
-export const Button = ({
+export const CircleIconButton = ({
   children,
   className: customClassnames,
   ...buttonProps
 }: ButtonProps) => {
   const classNames = cn(
-    'bg-white text-text-color h-8 flex flex-row justify-center items-center gap-1.5 p-4 rounded-2xl shadow-button-shadow font-bold',
+    'h-[60px] w-[60px] rounded-[50%] flex justify-center items-center',
     customClassnames
   );
 
